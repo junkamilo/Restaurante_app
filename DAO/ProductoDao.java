@@ -159,7 +159,7 @@ public class ProductoDao {
 	        e.printStackTrace();
 	    }
 	}
-	public static void guardarMenuDelDia(List<Integer> idsSeleccionados) {
+	public static boolean guardarMenuDelDia(List<Integer> idsSeleccionados) throws SQLException {
 	    String desmarcarTodos = "UPDATE productos SET disponibilidad = 0";
 	    String marcarSeleccionados = "UPDATE productos SET disponibilidad = 1 WHERE id_producto = ?";
 
@@ -175,11 +175,21 @@ public class ProductoDao {
 	                stmt2.setInt(1, id);
 	                stmt2.executeUpdate();
 	            }
+	            int[] resultados = stmt2.executeBatch();
+	            
+	         // Verificar que todas las actualizaciones fueron exitosas
+	            for (int resultado : resultados) {
+	                if (resultado == PreparedStatement.EXECUTE_FAILED) {
+	                    return false;
+	                }
 	        }
+	            return true;
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        return false;
 	    }
 	}
 	
+	}
 }

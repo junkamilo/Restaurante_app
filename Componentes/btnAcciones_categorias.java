@@ -93,9 +93,10 @@ public class btnAcciones_categorias extends JPanel {
     }
 
     protected Producto getProductoSeleccionado() {
-        for (int i = 0; i < checkboxes.size(); i++) {
-            if (checkboxes.get(i).isSelected()) {
-                return listaProductos.get(i);
+    	for (Producto p : listaProductos) {
+            JCheckBox checkBox = checkboxes.get(p.getId());
+            if (checkBox != null && checkBox.isSelected()) {
+                return p;
             }
         }
         return null;
@@ -162,10 +163,10 @@ public class btnAcciones_categorias extends JPanel {
     	// 1. Primero marcamos todos los productos de esta categoría como NO disponibles
         ProductoDao.marcarTodosComoNoDisponibles(categoria);
         
-        for (int i = 0; i < listaProductos.size(); i++) {
-        	if (checkboxes.get(i).isSelected()) {
-                Producto producto = listaProductos.get(i);
-                ProductoDao.actualizarDisponibilidad(producto.getId(), true);
+        for (Producto p : listaProductos) {
+            JCheckBox checkBox = checkboxes.get(p.getId());
+            if (checkBox != null && checkBox.isSelected()) {
+                ProductoDao.actualizarDisponibilidad(p.getId(), true);
                 algunoSeleccionado = true;
             }
         }
@@ -176,15 +177,17 @@ public class btnAcciones_categorias extends JPanel {
             JOptionPane.showMessageDialog(null, "No has seleccionado ningún producto para el menú del día");
         }
     }
+    
     public List<Producto> getProductosSeleccionados() {
-        List<Producto> seleccionados = new ArrayList<>();
-
-        for (int i = 0; i < checkboxes.size(); i++) {
-            if (checkboxes.get(i).isSelected()) {
-                seleccionados.add(listaProductos.get(i));
-            }
-        }
-
-        return seleccionados;
+    	 List<Producto> seleccionados = new ArrayList<>();
+    	    
+    	    for (Producto p : listaProductos) {
+    	        JCheckBox checkBox = checkboxes.get(p.getId());
+    	        if (checkBox != null && checkBox.isSelected()) {
+    	            seleccionados.add(p);
+    	        }
+    	    }
+    	    
+    	    return seleccionados;
     }
 }

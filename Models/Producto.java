@@ -68,4 +68,10 @@ public class Producto {
     public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;;
     }
+    
+    @Override
+    public String toString() {
+        // Devuelve el nombre y el precio para que se vea en el combo:
+        return nombre + " – $" + String.format("%.2f", precio);
+    }
 }

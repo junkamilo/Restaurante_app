@@ -22,7 +22,6 @@ public class Elmenu extends JPanel {
     private JPanel panelMenu;
 
     public Elmenu() {
-        setLayout(new BorderLayout());
         setPreferredSize(new Dimension(360, 640));
         
         List<Producto> productos = MenuDelDiaSGT.getInstance().getMenu();
@@ -34,13 +33,16 @@ public class Elmenu extends JPanel {
             add(lblProducto);
             y += 25; // Espaciado entre productos
         }
-
-        panelMenu = new JPanel();
-        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
-        panelMenu.setBackground(Color.WHITE);
-
-        JScrollPane scrollPane = new JScrollPane(panelMenu);
-        add(scrollPane, BorderLayout.CENTER);
+        setLayout(null);
+        
+                panelMenu = new JPanel();
+                panelMenu.setBounds(0, 0, 360, 640);
+                add(panelMenu);
+                panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
+                panelMenu.setBackground(Color.WHITE);
+                
+                        JScrollPane scrollPane = new JScrollPane();
+                        panelMenu.add(scrollPane);
 
         actualizarContenido(); // Mostrar contenido al iniciar
     }

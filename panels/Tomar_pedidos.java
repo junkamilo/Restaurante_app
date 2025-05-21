@@ -2,6 +2,7 @@ package Restaurante_app.panels;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ public class Tomar_pedidos extends JPanel {
     private CardLayout cardLayout;
     private JPanel panelContenedor;
     private Elmenu elMenu; // <- Nombre en minúscula para distinguir instancia
+    private Elpedido elPedido;
 
     public Tomar_pedidos() {
         this.setName("Tomar_pedidos");
@@ -53,7 +55,9 @@ public class Tomar_pedidos extends JPanel {
 
         // Instanciar Elmenu y agregarlo al panel con clave
         elMenu = new Elmenu();
+        elPedido = new Elpedido();
         panelContenedor.add(elMenu, "menuDelDia");
+        panelContenedor.add(elPedido, "elPedido");
 
         // Acción para mostrar el menú del día
         btnElmenu.addActionListener(new ActionListener() {
@@ -62,6 +66,12 @@ public class Tomar_pedidos extends JPanel {
                     elMenu.actualizarContenido(); // Actualiza contenido antes de mostrar
                 }
                 cardLayout.show(panelContenedor, "menuDelDia");
+            }
+        });
+     // Acción para mostrar el menú del día
+        btnPedido.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panelContenedor, "elPedido");
             }
         });
 
